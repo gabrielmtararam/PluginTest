@@ -11,7 +11,7 @@
         <Button Content="Enviar" Click="ButtonEnviar_OnClick"></Button>
 
         <!--CommandName="acender" CommandValue="0" CommandHeader="5AA5"-->
-        <local:CommandControl0Value CommandName="0 valores" CommandValue="0" />
+        <local:CommandControl0Value x:Name="commandcontrol0" CommandName="0 valores" CommandValue="0" />
         <local:CommandControl1Value CommandName="1 valor" CommandValue="0" />
         <local:CommandControl2Value CommandName="2 valores"  CommandValue="0" />
        

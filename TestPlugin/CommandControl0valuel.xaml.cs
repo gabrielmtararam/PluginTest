@@ -36,62 +36,74 @@ namespace TestPlugin
 
 
 
-        public String CommandHeader
+        public Byte CommandHeader
         {
-            get { return (String)GetValue(CommandHeaderProperty); }
+            get { return (Byte)GetValue(CommandHeaderProperty); }
             set { SetValue(CommandHeaderProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for CommandHeader.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandHeaderProperty =
-            DependencyProperty.Register("CommandHeader", typeof(String), typeof(CommandControl0Value), new PropertyMetadata("defaultName"));
+            DependencyProperty.Register("CommandHeader", typeof(Byte), typeof(CommandControl0Value), new PropertyMetadata(Convert.ToInt32("5AA5")));
 
 
 
-
-        public String CommandByteCount
+        public Byte CommandValueCount
         {
-            get { return (String)GetValue(CommandByteCountProperty); }
+            get { return (Byte)GetValue(CommandValueCountProperty); }
+            set { SetValue(CommandValueCountProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CommandHeader.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandValueCountProperty =
+            DependencyProperty.Register("CommandValueCount", typeof(Byte), typeof(CommandControl0Value), new PropertyMetadata(1));
+
+
+
+
+        public Byte CommandByteCount
+        {
+            get { return (Byte)GetValue(CommandByteCountProperty); }
             set { SetValue(CommandByteCountProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for CommandByteCount.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandByteCountProperty =
-            DependencyProperty.Register("CommandByteCount", typeof(String), typeof(CommandControl0Value), new PropertyMetadata("defaultName"));
+            DependencyProperty.Register("CommandByteCount", typeof(Byte), typeof(CommandControl0Value), new PropertyMetadata(3));
 
 
 
 
-        public String CommandCommand
+        public Byte CommandCommand
         {
-            get { return (String)GetValue(CommandCommandProperty); }
+            get { return (Byte)GetValue(CommandCommandProperty); }
             set { SetValue(CommandCommandProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for CommandCommand.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandCommandProperty =
-            DependencyProperty.Register("CommandCommand", typeof(String), typeof(CommandControl0Value), new PropertyMetadata("defaultName"));
+            DependencyProperty.Register("CommandCommand", typeof(Byte), typeof(CommandControl0Value), new PropertyMetadata(81));
 
 
 
 
 
-        public String CommandAdress
+        public Byte CommandAdress
         {
-            get { return (String)GetValue(CommandAdressProperty); }
+            get { return (Byte)GetValue(CommandAdressProperty); }
             set { SetValue(CommandAdressProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for CommandAdress.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandAdressProperty =
-            DependencyProperty.Register("CommandAdress", typeof(String), typeof(CommandControl0Value), new PropertyMetadata("defaultName"));
+            DependencyProperty.Register("CommandAdress", typeof(int), typeof(CommandControl0Value), new PropertyMetadata(0));
 
 
 
 
-        public String CommandValue
+        public Byte CommandValue
         {
-            get { return (String)GetValue(CommandValueProperty); }
+            get { return (Byte)GetValue(CommandValueProperty); }
             set { SetValue(CommandValueProperty, value); }
         }
 
@@ -99,7 +111,7 @@ namespace TestPlugin
 
         // Using a DependencyProperty as the backing store for CommandValue.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandValueProperty =
-            DependencyProperty.Register("CommandValue", typeof(String), typeof(CommandControl0Value), new PropertyMetadata("defaultName"));
+            DependencyProperty.Register("CommandValue", typeof(Byte), typeof(CommandControl0Value), new PropertyMetadata(01));
 
 
 
@@ -110,11 +122,13 @@ namespace TestPlugin
             InitializeComponent();
         }
 
-        public event EventHandler EnviarClicked;
+        public event EventHandler<CommandExecEventArgs> EnviarClicked;
 
         private void ButtonEnviar_OnClick(object sender, RoutedEventArgs e)
         {
-            EnviarClicked?.Invoke(this, EventArgs.Empty);
+            byte[] values = { 0, 2, 3, 4 };
+            CommandExecEventArgs evArgs = new CommandExecEventArgs(this.CommandHeader, this.CommandByteCount, this.CommandCommand, this.CommandAdress, this.CommandValueCount, values);
+            EnviarClicked?.Invoke(this, evArgs);
             MessageBox.Show("enviado");
         }
 

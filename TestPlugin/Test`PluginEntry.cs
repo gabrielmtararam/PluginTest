@@ -66,22 +66,32 @@ namespace TestPlugin
 
 
             _testPluginGui = (TestPluginGui)UserControl;
-            _testPluginGui.EnviarClicked += (sender, args) =>
-             {
-                 var dataOutPayload = new DataOutPayloadBase
-                 {
-                     Bytes = new Byte[] { 1, 2, 3, 4 }
-                 };
+            _testPluginGui.completeEvent += OnCommandComplete;
+            
 
-                 var dataOutPayloadWrapper = new BrokerPayloadWrapperBase<IDataOutPayload>
-                 {
-                     Payload = dataOutPayload
-                 };
+            
 
-                 Publish(dataOutPayloadWrapper);
-             };
-            // path.set
+
         }
+
+        private void OnCommandComplete(object sender, CommandCompleteEventArgs e)
+        {
+            MessageBox.Show("enviado 2" + e._command);
+
+            var dataOutPayload = new DataOutPayloadBase
+            {
+                Bytes = new Byte[] { 1, 2, 3, 4 }
+            };
+
+            var dataOutPayloadWrapper = new BrokerPayloadWrapperBase<IDataOutPayload>
+            {
+                Payload = dataOutPayload
+            };
+
+            Publish(dataOutPayloadWrapper);
+        }
+
+
 
         public void Close(object sender, CancelEventArgs args)
         {
